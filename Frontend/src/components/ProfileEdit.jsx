@@ -17,7 +17,8 @@ function ProfileEdit() {
         name: "",
         address: "",
         password: "",
-        confirm_password:""
+       
+        image: ''
         
       };
     
@@ -32,8 +33,16 @@ function ProfileEdit() {
         console.log(routeParams,'params')
         axios.get(`${ATLAS_URI}/getUserDetails/${routeParams.id}` ).then(response=>{
             console.log(response)
+            setformValues({
+                name: response.data.name,
+                address: response.data.address,
+                password: response.data.password,
+                image: response.data.image
+
         })
-      })
+        
+        })
+      },[])
     
       const navigate = useNavigate()
     
@@ -59,9 +68,7 @@ function ProfileEdit() {
         alert("Only png/jpeg file is accepted");
         return;
       }
-      if(!file){
-        return alert('add an image')
-      }
+      
     
       for (const i in formik.values) {
         console.log(formik.values[i], "ini");
@@ -76,7 +83,7 @@ function ProfileEdit() {
       }
     
       console.log(formData, "fomrdata");
-      axios.post(`${ATLAS_URI}/userRegistration`, formData).then((response)=>{
+      axios.post(`${ATLAS_URI}/userUpdateProfile`, formData).then((response)=>{
         console.log(response)
         if(response.status == 200){
             alert('User created succesfully')
@@ -94,6 +101,7 @@ function ProfileEdit() {
             ...formValues
         },
         validationSchema:addLeadSchema,
+        enableReinitialize: true,
         onSubmit,
     })
     
@@ -107,30 +115,25 @@ function ProfileEdit() {
     <Form className="container justify-content-center" onSubmit={formik.handleSubmit}>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
         <Form.Label>Name</Form.Label>
-        <Form.Control className={formik.errors.name && formik.touched.name?'form-control input-error':'form-control'} onChange={formik.handleChange} name='name'  type="text" placeholder="Enter your name" />
+        <Form.Control value={formik.values.name} className={formik.errors.name && formik.touched.name?'form-control input-error':'form-control'} onChange={formik.handleChange} name='name'  type="text" placeholder="Enter your name" />
         {formik.errors.name && formik.touched.name && <p className="error-message">{formik.errors.name}</p>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>Address</Form.Label>
-        <Form.Control className={formik.errors.address && formik.touched.address?'form-control input-error':'form-control'} onChange={formik.handleChange} name='address' type="text" placeholder="Enter your address" />
+        <Form.Control value={formik.values.address} className={formik.errors.address && formik.touched.address?'form-control input-error':'form-control'} onChange={formik.handleChange} name='address' type="text" placeholder="Enter your address" />
               {formik.errors.address && formik.touched.address && <p className="error-message">{formik.errors.address}</p>}
     
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>password</Form.Label>
-        <Form.Control className={formik.errors.password && formik.touched.password?'form-control input-error':'form-control'} onChange={formik.handleChange} name='password' type="password" placeholder="Enter password" />
+        <Form.Control  className={formik.errors.password && formik.touched.password?'form-control input-error':'form-control'} onChange={formik.handleChange} name='password' type="password" placeholder="Enter password" />
               {formik.errors.password && formik.touched.password && <p className="error-message">{formik.errors.password}</p>}
     
       </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>confirm password</Form.Label>
-        <Form.Control className={formik.errors.confirm_password && formik.touched.confirm_password?'form-control input-error':'form-control'} onChange={formik.handleChange} name='confirm_password' type="password" placeholder="confirm password" />
-              {formik.errors.confirm_password && formik.touched.confirm_password && <p className="error-message">{formik.errors.confirm_password}</p>}
-    
-      </Form.Group>{" "}
+     
       <Form.Group controlId="formFile" className="mb-3">
         <Form.Label>Add image</Form.Label>
-        <Form.Control name ="userImage" type="file" ref={profileImageInputRef} onChange={handleChange} accept="image/png, image/jpeg" />
+        <Form.Control  name ="userImage" type="file" ref={profileImageInputRef} onChange={handleChange} accept="image/png, image/jpeg" />
       </Form.Group>
       <Button type='submit' variant="success" >Success</Button>{' '}
     
