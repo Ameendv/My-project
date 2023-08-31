@@ -1,11 +1,7 @@
 import * as yup from "yup";
 
-// const phoneRegExp = /^[+]\d{2}?\d{10}$/;
-const phoneRegExp = /^\+[1-9]{1}[0-9]{3,14}$/;
 const nameRegex = /^[a-zA-Z][a-zA-Z. ]*$/;
-const heightRegex = /^[0-9.]*$/;
-const workHoursRegex = /^[\d-]*$/;
-const ageRegExp = /^([0-1]?[0-9]|20)$/
+
 
 
 export const addLeadSchema = yup.object().shape({
@@ -27,4 +23,18 @@ export const addLeadSchema = yup.object().shape({
     confirm_password: yup.string()
     .oneOf([yup.ref("password"), null], "Passwords must match")
     .required("Confirm Password is required"),
+});
+
+export const loginSchema = yup.object().shape({
+  name: yup
+    .string()
+    .required("Enter the name")
+    .matches(nameRegex, "Enter a valid name")
+    .min(3, "Name should be minimum 3 letters")
+    .max(50, "Name cannot be more than 50"),
+ 
+  password: yup.string()
+    .min(8, "Password must be at least 8 characters long")
+    .required("Password is required"),
+   
 });

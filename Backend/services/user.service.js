@@ -51,6 +51,7 @@ async function userRegistration(
 }
 
 async function userLogin(datas){
+  console.log(datas)
     try {
         const userExist = await User.findOne({ name: datas.name });
         if (userExist) {
