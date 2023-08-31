@@ -26,6 +26,11 @@ function App() {
             exact
             element={ <Profile />}
           />
+          <Route
+            path="*"
+            exact
+            element={ <Registration />}
+          />
         </Routes>
         <ToastContainer />
       </BrowserRouter>

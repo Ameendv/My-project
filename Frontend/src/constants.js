@@ -1,1 +1,1 @@
-export const ATLAS_URI = "http://localhost:8080";
+export const ATLAS_URI = "http://localhost:8000";

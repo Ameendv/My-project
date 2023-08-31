@@ -71,24 +71,46 @@ function LoginForm() {
     
     
     
-    return (
-    <Form className="container justify-content-center" onSubmit={formik.handleSubmit}>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" >
-        <Form.Label>Name</Form.Label>
-        <Form.Control className={formik.errors.name && formik.touched.name?'form-control input-error':'form-control'} onChange={formik.handleChange} name='name'  type="text" placeholder="Enter your name" />
-        {formik.errors.name && formik.touched.name && <p className="error-message">{formik.errors.name}</p>}
-      </Form.Group>
-     
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>password</Form.Label>
-        <Form.Control className={formik.errors.password && formik.touched.password?'form-control input-error':'form-control'} onChange={formik.handleChange} name='password' type="password" placeholder="Enter password" />
-              {formik.errors.password && formik.touched.password && <p className="error-message">{formik.errors.password}</p>}
-    
-      </Form.Group>
-      
-      <Button type='submit' variant="success" >Success</Button>{' '}
-    
-    </Form>
+    return  (
+      <div className="container justify-content-center">
+        <Form className="my-form" onSubmit={formik.handleSubmit}>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              className={`form-control ${
+                formik.errors.name && formik.touched.name ? 'input-error' : ''
+              }`}
+              onChange={formik.handleChange}
+              name="name"
+              type="text"
+              placeholder="Enter your name"
+            />
+            {formik.errors.name && formik.touched.name && (
+              <p className="error-message">{formik.errors.name}</p>
+            )}
+          </Form.Group>
+  
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              className={`form-control ${
+                formik.errors.password && formik.touched.password ? 'input-error' : ''
+              }`}
+              onChange={formik.handleChange}
+              name="password"
+              type="password"
+              placeholder="Enter password"
+            />
+            {formik.errors.password && formik.touched.password && (
+              <p className="error-message">{formik.errors.password}</p>
+            )}
+          </Form.Group>
+  
+          <Button type="submit" variant="success">
+            Submit
+          </Button>
+        </Form>
+      </div>
     );
     
 }

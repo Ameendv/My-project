@@ -67,7 +67,7 @@ app.use(errorHandler);
 
 // start server
 var httpServer = http.createServer(app);	
-httpServer.listen(8080,()=>{
+httpServer.listen(8000,()=>{
     console.log(`Server running on port 8080`)
 });	
 //app.listen(port, () => console.log('Server listening on port ' + port));	
