@@ -7,6 +7,7 @@ router.post('/userRegistration', store.single('userImage'), userRegistration)
 router.post('/userLogin', userLogin)
 router.put('/userUpdateProfile',store.single('userImage'), userUpdateProfile)
 router.delete('/deleteUser', deleteUser)
+router.get('/getUserDetails/:userId', getUserDetails)
 
 function userRegistration(req, res, next){
      console.log(req.file, "file details")
@@ -30,6 +31,12 @@ function userUpdateProfile(req, res, next){
 
 function deleteUser(req, res, next){
     userServices.deleteUser(req.body.userId).then(response=>{
+        res.json(response)
+    }).catch(next)
+}
+
+function getUserDetails(req, res, next){
+    userServices.getUserDetails(req.params.userId).then(response=>{
         res.json(response)
     }).catch(next)
 }

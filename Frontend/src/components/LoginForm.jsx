@@ -41,21 +41,14 @@ function LoginForm() {
     
       
     
-      for (const i in formik.values) {
-        console.log(formik.values[i], "ini");
-        formData.append(i, formik.values[i]);
-      }
-     
-      for (const [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-      }
-    
-      console.log(formData, "fomrdata");
+   
+        
       axios.post(`${ATLAS_URI}/userLogin`, formik.values).then((response)=>{
         console.log(response)
         if(response.status == 200){
+            console.log(response)
             alert('User Logged in succesfully')
-            //navigate('/login');
+            navigate(`/profile/${response.data?.userExist?._id}`);
         }
     
         

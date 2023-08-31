@@ -3,14 +3,15 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { ObjectId } = require('mongodb');
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs');
 
 
 module.exports = {
     userRegistration,
     userLogin,
     userUpdateProfile,
-    deleteUser
+    deleteUser,
+    getUserDetails
 }
 
 async function userRegistration(
@@ -171,4 +172,9 @@ async function deleteUser(userId) {
     console.log(error);
     throw `Something went wrong`;
   }
+}
+
+async function getUserDetails(userId){
+  const userDetails = await User.findOne({_id: new ObjectId(userId)})
+  return userDetails
 }

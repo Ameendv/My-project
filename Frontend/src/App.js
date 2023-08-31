@@ -4,6 +4,7 @@ import  Registration  from './pages/registration';
 import { BrowserRouter as Router, Route, Switch, Routes, BrowserRouter } from "react-router-dom";
 
 import Login from './pages/login'
+import Profile from './pages/profile';
 import { ToastContainer } from 'react-toastify';
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
             path="/login"
             exact
             element={ <Login />}
+          />
+          <Route
+            path="/profile/:id"
+            exact
+            element={ <Profile />}
           />
         </Routes>
         <ToastContainer />
