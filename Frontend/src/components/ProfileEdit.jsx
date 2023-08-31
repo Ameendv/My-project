@@ -26,6 +26,7 @@ function ProfileEdit() {
       const [file, setFile] = useState();
       const [images, setImages] = useState([]);
       const profileImageInputRef = React.useRef(null)
+      const [edit, setEdit] = useState(false)
 
       const routeParams = useParams()
 
@@ -125,6 +126,7 @@ function ProfileEdit() {
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Name</Form.Label>
             <Form.Control
+            disabled={!edit}
               value={formik.values.name}
               className={`form-control ${formik.errors.name && formik.touched.name ? 'input-error' : ''}`}
               onChange={formik.handleChange}
@@ -139,6 +141,7 @@ function ProfileEdit() {
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
             <Form.Label>Address</Form.Label>
             <Form.Control
+            disabled={!edit}
               value={formik.values.address}
               className={`form-control ${formik.errors.address && formik.touched.address ? 'input-error' : ''}`}
               onChange={formik.handleChange}
@@ -153,6 +156,7 @@ function ProfileEdit() {
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
             <Form.Label>Password</Form.Label>
             <Form.Control
+            disabled={!edit}
               className={`form-control ${formik.errors.password && formik.touched.password ? 'input-error' : ''}`}
               onChange={formik.handleChange}
               name="password"
@@ -166,6 +170,7 @@ function ProfileEdit() {
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Add Image</Form.Label>
             <Form.Control
+            disabled={!edit}
               name="userImage"
               type="file"
               ref={profileImageInputRef}
@@ -173,7 +178,10 @@ function ProfileEdit() {
               accept="image/png, image/jpeg"
             />
           </Form.Group>
-          <Button type="submit" variant="success">
+          <Button  onClick={()=>{setEdit(true)}} variant="primary" >
+            Edit
+          </Button>  
+          <Button   disabled={!edit} className='ms-5' type="submit" variant="success">
             Submit
           </Button>
         </Form>
