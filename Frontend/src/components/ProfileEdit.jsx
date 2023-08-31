@@ -1,7 +1,7 @@
 import React,{ useEffect, useState} from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { addLeadSchema } from '../validationSchema'
+import { updateLeadSchema } from '../validationSchema'
 import { useNavigate, useParams } from 'react-router-dom';
 import {useFormik} from 'formik'
 import axios from "axios";
@@ -40,9 +40,11 @@ function ProfileEdit() {
                 image: response.data.image
 
         })
+        }).catch(error=>{
+            console.log(error)
         
         })
-      },[])
+      },[routeParams.id])
     
       const navigate = useNavigate()
     
@@ -74,6 +76,7 @@ function ProfileEdit() {
         console.log(formik.values[i], "ini");
         formData.append(i, formik.values[i]);
       }
+      formData.append('id', routeParams.id)
       if (file !== undefined) {
         formData.append("userImage", file);
       }
@@ -83,11 +86,11 @@ function ProfileEdit() {
       }
     
       console.log(formData, "fomrdata");
-      axios.post(`${ATLAS_URI}/userUpdateProfile`, formData).then((response)=>{
+      axios.put(`${ATLAS_URI}/userUpdateProfile`, formData).then((response)=>{
         console.log(response)
         if(response.status == 200){
-            alert('User created succesfully')
-            navigate('/login');
+            alert(response.data)
+            //navigate(`/profile/${routeParams.id}`);
         }
     
         
@@ -100,7 +103,7 @@ function ProfileEdit() {
         initialValues:{
             ...formValues
         },
-        validationSchema:addLeadSchema,
+        validationSchema:updateLeadSchema,
         enableReinitialize: true,
         onSubmit,
     })

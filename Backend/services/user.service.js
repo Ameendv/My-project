@@ -73,6 +73,7 @@ async function userLogin(datas){
 }
 
 async function userUpdateProfile(datas, fileDetails){
+  console.log(arguments)
     if (datas.password) {
       const hashedPassword = await bcrypt.hash(datas.password, 10);
       datas.password = hashedPassword;

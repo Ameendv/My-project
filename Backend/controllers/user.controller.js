@@ -24,7 +24,8 @@ function userLogin(req, res, next){
 }
 
 function userUpdateProfile(req, res, next){
-    userServices.userUpdateProfile(req.body, req.file).then(response=>{
+    console.log(req.body, req.files)
+    userServices.userUpdateProfile(req.body,req.file && req.file).then(response=>{
         res.json(response)
     }).catch(next)
 }

@@ -38,3 +38,23 @@ export const loginSchema = yup.object().shape({
     
    
 });
+
+export const updateLeadSchema = yup.object().shape({
+  name: yup
+    .string()
+    
+    .matches(nameRegex, "Enter a valid name")
+    .min(3, "Name should be minimum 3 letters")
+    .max(50, "Name cannot be more than 50"),
+  address: yup
+    .string()
+    
+    .min(3, "Name should be minimum 3 letters")
+    .max(50, "Name cannot be more than 50"),
+  password: yup.string()
+    .min(8, "Password must be at least 8 characters long")
+    ,
+    confirm_password: yup.string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    
+});
