@@ -15,7 +15,7 @@ function userRegistration(req, res, next){
     }).catch(next)
 }
 
-function userLogin(req, res, next){
+function userLogin(req, res, next){ 
     userServices.userLogin(req.body).then(response=>{
         res.json(response)
     }).catch(next)
