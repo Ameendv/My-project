@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch, Routes, BrowserRouter } from "r
 import Login from './pages/login'
 import Profile from './pages/profile';
 import { ToastContainer } from 'react-toastify';
+import Home from './pages/home';
 function App() {
   return (
     <div className="App">
@@ -27,9 +28,9 @@ function App() {
             element={ <Profile />}
           />
           <Route
-            path="*"
+            path="/"
             exact
-            element={ <Registration />}
+            element={ <Home />}
           />
         </Routes>
         <ToastContainer />
